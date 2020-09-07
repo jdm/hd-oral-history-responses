@@ -2,6 +2,7 @@
 import sys
 from os import path
 sys.path.insert(0, path.dirname(path.dirname(path.abspath(__file__))))
+sys.path.insert(0, path.dirname(path.abspath(__file__)))
 from random_response import response
 print("Content-Type: text/html; charset=utf-8")
 print()
