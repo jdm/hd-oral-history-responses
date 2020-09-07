@@ -35,8 +35,10 @@ def response(fname):
         
         question = choice(indexes)
         filtered_responses = list(filter(lambda row: row[question], responses))
-        answer = choice(filtered_responses)
-        return (questions[question], answer[question])
+        answer = choice(filtered_responses)[question]
+        if question == WHERE_PARTICIPATED:
+            answer = answer.replace(";", ", ")
+        return (questions[question], answer)
 
 if __name__ == "__main__":
     (question, answer) = response('responses.csv')
