@@ -138,18 +138,18 @@ td.right {
       // Submit list of all known annotation values
       // Submit string of all annotations associated with current answers
       const form = document.querySelector('#f');
-      const answers = document.querySelectorAll('.answer');
+      const annotationList = document.querySelectorAll('.annotation');
       let curAnnotations = [];
       // Convert each string-list into a real array of values
-      for (const answer of answers) {
+      for (const annotation of annotationList) {
           // Filter out any empty strings so the array is empty.
-          const value = answer.querySelector('.annotation').value.split(' ');
+          const value = annotation.value.split(' ');
           curAnnotations.push(value.filter((s) => s.length > 0));
       }
       const finalAnnotations = document.getElementsByName('annotations')[0];
       finalAnnotations.value = JSON.stringify(curAnnotations);
       //console.log(finalAnnotations.value);
-
+      console.log(curAnnotations);
       for (const annotations of curAnnotations) {
           for (const annotation of annotations) {
               if (allAnnotations.indexOf(annotation) === -1) {
