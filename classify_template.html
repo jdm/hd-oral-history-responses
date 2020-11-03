@@ -81,10 +81,18 @@ td.right {
 ul {
     position: absolute;
     background-color: white;
-    padding-right: 25px;
+    margin-right: 25px;
+    margin-left: 25px;
+    user-select: none;
 }
 ul.active {
     border: 1px solid black;
+}
+
+li:hover {
+    background-color: black;
+    color: lightgrey;
+    cursor: pointer;
 }
 
 </style>
@@ -152,18 +160,24 @@ ul.active {
           matches.sort().forEach((s) => {
               let item = document.createElement('li');
               item.textContent = s;
+              item.onmousedown = function() {
+                  annotation.value += s.slice(value.length) + ' ';
+                  setTimeout(() => annotation.focus(), 0);
+              };
               list.appendChild(item);
           });
       };
       annotation.onfocus = function() {
           this.oninput();
-          list.classList.toggle('active');
+          clearTimeout(this.lastTimeout);
+          list.classList.add('active');
       }
       annotation.onblur = function() {
-          let values = this.value.split(' ');
           let list = this.nextElementSibling;
-          list.innerHTML = '';
-          list.classList.toggle('active');
+          this.lastTimeout = setTimeout(() => {
+              list.innerHTML = '';
+              list.classList.remove('active');
+          }, 0);
       };
       annotation.value = response[2];
       right.appendChild(annotation);
