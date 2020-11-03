@@ -81,4 +81,6 @@ with open('classify_template.html') as f:
         ", ".join(map(lambda a: '"' + a + '"', allAnnotations)),
     )
     contents = contents.replace("{{id}}", str(index))
+    contents = contents.replace("{{prev}}", str(index - 1))
+    contents = contents.replace("{{next}}", str(index + 1))
     print(contents)

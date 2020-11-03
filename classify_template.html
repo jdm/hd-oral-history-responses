@@ -93,6 +93,11 @@ ul.active {
   <a href="https://hd-oral-history.tumblr.com/">Harry/Draco Fandom Oral History Project</a>
   <p>A project gathering personal stories about the H/D fandom. <a href="https://forms.gle/UUPKmZ6MAX7GrJFi7">Share your story.</a> Contact <a href="mailto:hdoralhistory@gmail.com">hdoralhistory@gmail.com</a> with feedback or questions.</p>
 </h1>
+<p>
+  <button onclick="location.assign('?id={{prev}}')">&lt;&lt; prev</button>
+  -
+  <button onclick="location.assign('?id={{next}}')">next &gt;&gt;</button>
+</p>
 <form id="f" action="save_annotation.cgi" method="post">
   <input type="hidden" name="id" value="{{id}}">
   <input type="hidden" name="annotations" value="">
