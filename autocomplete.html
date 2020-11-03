@@ -1,0 +1,32 @@
+<title>Autocomplete test</title>
+<script src="autocomplete.js"></script>
+<script>
+  let allAnnotations = [
+      "collaborate",
+      "40s",
+      "exp-short",
+      "transphobia",
+      "30s",
+      "exp-long",
+      "roleplaying",
+      "delicious",
+      "pinboard",
+      "sheltered",
+      "irl"
+  ];
+
+  let autocomplete = new Map();
+  createTrieFor(allAnnotations, autocomplete, "");
+
+  function tryAutocomplete(search) {
+      document.querySelector('#list').innerHTML = '';
+      completeMatching(search, '', autocomplete).forEach((s) => {
+          let item = document.createElement('li');
+          item.textContent = s;
+          document.querySelector('#list').appendChild(item);
+      });
+  }
+</script>
+<input oninput="tryAutocomplete(this.value)">
+<ul id="list">
+</ul>

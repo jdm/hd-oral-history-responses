@@ -56,17 +56,14 @@ p {
 }
 p.question {
     font-size: 18px;
-    swhite-space: pre;
 }
 p.answer {
     font-size: 24px;
-    swhite-space: pre;
 }
 #scontent-wrapper {
     max-width: 100%;
 }
 #content {
-    swidth: 100%;
     table-layout: fixed;
 }
 td {
@@ -74,13 +71,22 @@ td {
 }
 td.left {
     width: 75%;
-    stext-align: right;
 }
 
 td.right {
     width: 25%;
     text-align: left;
 }
+
+ul {
+    position: absolute;
+    background-color: white;
+    padding-right: 25px;
+}
+ul.active {
+    border: 1px solid black;
+}
+
 </style>
 <title>H/D Oral History: admin interface</title>
 <h1>
@@ -98,8 +104,12 @@ td.right {
   <p><button onclick="doSubmit()">Next response</button></p>
 </form>
 
+<script src="../autocomplete.js"></script>
 <script>
   const allAnnotations = [{{annotations}}];
+
+  let autocomplete = new Map();
+  createTrieFor(allAnnotations, autocomplete, "");
 
   const responses = [{{responses}}];
   const content = document.querySelector('#content');
@@ -125,12 +135,35 @@ td.right {
       answerText.textContent = response[1];
       answer.appendChild(answerText);
 
+      left.appendChild(answer);
+
       let annotation = document.createElement('input');
       annotation.className = "annotation";
+      annotation.oninput = function() {
+          let list = this.nextElementSibling;
+          list.innerHTML = '';
+          let value = this.value.split(' ').slice(-1)[0];
+          completeMatching(value, '', autocomplete).forEach((s) => {
+              let item = document.createElement('li');
+              item.textContent = s;
+              list.appendChild(item);
+          });
+      };
+      annotation.onfocus = function() {
+          this.oninput();
+          list.classList.toggle('active');
+      }
+      annotation.onblur = function() {
+          let values = this.value.split(' ');
+          let list = this.nextElementSibling;
+          list.innerHTML = '';
+          list.classList.toggle('active');
+      };
       annotation.value = response[2];
       right.appendChild(annotation);
 
-      left.appendChild(answer);
+      let list = document.createElement('ul');
+      right.appendChild(list);
   }
 
   function doSubmit() {
