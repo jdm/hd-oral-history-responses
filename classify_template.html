@@ -148,7 +148,8 @@ ul.active {
           let list = this.nextElementSibling;
           list.innerHTML = '';
           let value = this.value.split(' ').slice(-1)[0];
-          completeMatching(value, '', autocomplete).forEach((s) => {
+          let matches = completeMatching(value, '', autocomplete);
+          matches.sort().forEach((s) => {
               let item = document.createElement('li');
               item.textContent = s;
               list.appendChild(item);

@@ -14,7 +14,7 @@ form = cgi.FieldStorage()
 if "id" not in form:
     try:
         with open("last") as f:
-            index = int(f.read())
+            index = int(f.read()) + 1
     except:
         index = 1;
 else:
