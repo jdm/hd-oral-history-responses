@@ -132,7 +132,7 @@ ul.active {
       answer.className = 'answer';
 
       let answerText = document.createElement('div');
-      answerText.textContent = response[1];
+      answerText.innerHTML = response[1];
       answer.appendChild(answerText);
 
       left.appendChild(answer);

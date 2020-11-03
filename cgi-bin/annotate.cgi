@@ -68,7 +68,7 @@ responses = zip(questions, answers, annotations)
 #print(list(responses))
 
 def escape(s):
-    return s.replace('"', '\\"').replace('\n', '\\\n')#.replace("'", "\\'")
+    return s.replace('"', '\\"').replace('\n', '<br>')#.replace("'", "\\'")
 
 with open('classify_template.html') as f:
     contents = f.read()
